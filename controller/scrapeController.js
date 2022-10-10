@@ -10,7 +10,6 @@ exports.scrape = async (req,res) => {
   
   const { data } = axios.get(url);
     try {
-      // Fetch HTML of the page we want to scrape
       const { data } = await axios.get(url);
       const $ = cheerio.load(data);
       const listItems = $(".ty-grid-list__item-details");
@@ -19,12 +18,28 @@ exports.scrape = async (req,res) => {
 
       listItems.each((index, element) => {
         if(index == 1) {
-            // console.log('elementi : ' + index);
-            // console.log(element.children('div'));
-            // console.log('elementi : ' + index);
-            // console.log($(element).children('div'));
+            console.log('elementi : ' + index);
+            console.log(element.children('div'));
+            console.log('elementi : ' + index);
+            console.log($(element).children('div'));
         }
       })
+
+      const query = {
+          name: 'tastiere'
+      }
+      const update = {
+        price: Number,
+        created_at: new Date(),
+        updated_at: new Date(),
+      }
+      const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+      // Find the document
+      Model.findOneAndUpdate(query, update, options, function(error, result) {
+          if (error) return;
+          // do something with the document
+      });
 
       res.json({'name' : 'dardan'});
     } catch (err) {
