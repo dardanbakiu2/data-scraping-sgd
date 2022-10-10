@@ -15,7 +15,7 @@ const Navbar = () => {
           <NavLink to='/'>
             Fetch
           </NavLink>
-          <NavLink to='/about'>
+          <NavLink to='/view'>
             View
           </NavLink>
         </NavMenu>
