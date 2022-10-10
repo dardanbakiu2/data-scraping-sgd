@@ -2,6 +2,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const res = require("express/lib/response");
 const pretty = require("pretty");
+const Product = require('../Model/Product');
 
 exports.scrape = async (req,res) => {
   const product = req.body.product
