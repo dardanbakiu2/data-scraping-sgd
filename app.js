@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const app = express();
 const router = require('./router');
@@ -24,7 +22,7 @@ mongoose.connect(mongoUrl, {
   useNewUrlParser: true, useUnifiedTopology: true
 }, error => {
   if(error) console.log(error)
-  else console.log('Connected to mongoDB')
+  else console.log('Connected to mongoDB');
 })
 
 const PORT = process.env.PORT || 8000;

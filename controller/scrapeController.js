@@ -7,21 +7,23 @@ const Product = require('../Model/Product');
 exports.scrape = async (req,res) => {
   const product = req.body.product
   const url = `https://gjirafa50.com/?rel=2&q=${product}&dispatch=products.search&security_hash=687aad94c3239f0e833d07863427a42a`;
-  
-  const { data } = axios.get(url);
     try {
       const { data } = await axios.get(url);
       const $ = cheerio.load(data);
+      // const listItems = $(".ty-grid-list__item-details");
       const listItems = $(".ty-grid-list__item-details");
 
       const products = [];
 
       listItems.each((index, element) => {
+        const product = {};
+
+        const name = $(element).children('.ty-grid-list__item-name').text();
+        const price = $(element).find('.ty-grid-list__price > .ty-price-update > .ty-price').text();
         if(index == 1) {
             console.log('elementi : ' + index);
-            console.log(element.children('div'));
-            console.log('elementi : ' + index);
-            console.log($(element).children('div'));
+            console.log($(element).children('.ty-grid-list__item-name').text());
+            console.log($(element).find('.ty-grid-list__price > .ty-price-update > .ty-price').text());
         }
       })
 
@@ -41,7 +43,6 @@ exports.scrape = async (req,res) => {
           // do something with the document
       });
 
-      res.json({'name' : 'dardan'});
     } catch (err) {
       res.json(err);
     }
