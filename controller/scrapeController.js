@@ -16,32 +16,30 @@ exports.scrape = async (req,res) => {
       const products = [];
 
       listItems.each((index, element) => {
-        const product = {};
-
         const name = $(element).children('.ty-grid-list__item-name').text();
         const price = $(element).find('.ty-grid-list__price > .ty-price-update > .ty-price').text();
-        if(index == 1) {
-            console.log('elementi : ' + index);
-            console.log($(element).children('.ty-grid-list__item-name').text());
-            console.log($(element).find('.ty-grid-list__price > .ty-price-update > .ty-price').text());
+        
+        const query = {
+          name: name
         }
+        const update = {
+          price: price,
+          created_at: new Date(),
+          updated_at: new Date(),
+        }
+
+        products.push({...update, name: name});
+
+        const options = { upsert: true, new: true, setDefaultsOnInsert: true };
+
+        // Find the document
+        Product.findOneAndUpdate(query, update, options, function(error, result) {
+            if (error) console.log(error); return;
+            // do something with the document
+        });
       })
 
-      const query = {
-          name: 'tastiere'
-      }
-      const update = {
-        price: Number,
-        created_at: new Date(),
-        updated_at: new Date(),
-      }
-      const options = { upsert: true, new: true, setDefaultsOnInsert: true };
-
-      // Find the document
-      Model.findOneAndUpdate(query, update, options, function(error, result) {
-          if (error) return;
-          // do something with the document
-      });
+      res.json(products)
 
     } catch (err) {
       res.json(err);
