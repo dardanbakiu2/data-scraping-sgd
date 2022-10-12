@@ -7,7 +7,7 @@ import './style.css';
 const About = () => {
   const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState();
-  const [products, setProducts] = useState([{name:'fetch to view', price: 0}]);
+  const [products, setProducts] = useState([{name:'Scrape to view', price: 0}]);
 
   function sortByKey(array, key) {
     return array.sort(function(a, b) {
@@ -21,6 +21,7 @@ const About = () => {
 
     axios.get('/products', {params : { product: product.value } }).then((response) => {
       console.log(response.data)
+      setProducts(sortByKey(response.data, 'price'));
     })
   }
   
