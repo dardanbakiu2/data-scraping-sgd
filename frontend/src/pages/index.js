@@ -8,6 +8,8 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState();
   const [products, setProducts] = useState([{name:'fetch to view', price: 0}]);
+  const [lowestPrice, setLowestPrice] = useState(0);
+  const [highestPrice, setHighestPrice] = useState(0);
 
   function sortByKey(array, key) {
     return array.sort(function(a, b) {
@@ -28,8 +30,12 @@ const Home = () => {
   }, [])
 
   const scrape = () => {
+    console.log(lowestPrice);
+    console.log(highestPrice);
     axios.post('/scrape', {
-      product: product.value
+      product: product.value,
+      lowestPrice: lowestPrice,
+      highestPrice: highestPrice
     })
     .then(function (response) {
       setProducts(sortByKey(response.data, 'price'))
@@ -61,7 +67,9 @@ const Home = () => {
           alignItems: 'center',
           flexDirection: 'column',
         }}
-      >
+      > 
+        <input onChange={(e) => setLowestPrice(e.target.value)} placeholder="Lowest Range Price"></input><br/>
+        <input onChange={(e) => setHighestPrice(e.target.value)} placeholder="Highest Ragen Price"></input><br/>
         <Select options={categories} onChange={setProduct} value={product}/>
         <br/>
         <button onClick={scrape}>Scrape</button>
