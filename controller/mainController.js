@@ -21,13 +21,14 @@ exports.categories = (req,res) => {
 
 exports.products = (req,res) => {
     console.log(req.query);
-    // const product = req.query.product;
-    const product = "Tastierë Dell KB-216, CZ/SK, e zezë"
-
-    Product.find({ name: product}, function (err, docs) {
-        // if (err) res.json(err); return;
-
-        console.log('here we are inside queyr : ', docs);
+    const product = req.query.product;
+    
+    Product.find({ category: product}, function (err, docs) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.json(docs)
+        }
     });
-    res.json({name:'ddardan'})
 }
