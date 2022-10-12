@@ -5,8 +5,12 @@ const pretty = require("pretty");
 const Product = require('../Model/Product');
 
 exports.scrape = async (req,res) => {
-  const product = req.body.product
-  const url = `https://gjirafa50.com/?rel=2&q=${product}&dispatch=products.search&security_hash=687aad94c3239f0e833d07863427a42a`;
+  const product = req.body.product;
+  const sPrice = req.body.sPrice;
+  const ePrice = req.body.ePrice;
+  
+  // const url = `https://gjirafa50.com/?rel=2&q=${product}&dispatch=products.search&security_hash=687aad94c3239f0e833d07863427a42a`;
+  const url = `https://gjirafa50.com/index.php?dispatch=products.search&q=${product}&features_hash=961-380-2446EUR`;
     try {
       const { data } = await axios.get(url);
       const $ = cheerio.load(data);
@@ -24,6 +28,7 @@ exports.scrape = async (req,res) => {
         }
         const update = {
           price: price,
+          category: product,
           created_at: new Date(),
           updated_at: new Date(),
         }

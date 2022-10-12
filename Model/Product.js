@@ -4,6 +4,7 @@ const { Schema } = mongoose;
 const productSchema = mongoose.model('products', new Schema({
     name: String, 
     price: String,
+    category: String,
     created_at: Date,
     updated_at: Date
 }));

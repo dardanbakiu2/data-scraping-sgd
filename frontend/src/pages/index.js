@@ -1,21 +1,38 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from '../axiosinstance';
+import Select from 'react-select' 
+import './style.css';
 
 const Home = () => {
+  const [categories, setCategories] = useState([]);
   const [product, setProduct] = useState();
+  const [products, setProducts] = useState([{name:'fetch to view', price: 0}]);
 
+  function sortByKey(array, key) {
+    return array.sort(function(a, b) {
+        var x = a[key]; var y = b[key];
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    });
+  }
+  
   useEffect(() => {
-    axios.get('/test').then((data) => {
-      console.log('here are data : ', data)
+    axios.get('/categories').then((response) => {
+      const data = response.data;
+      const categories = data.map(category => {
+        return  { value: category.name, label: category.name }
+      })
+
+      setCategories(sortByKey(categories, 'label'));
     })
   }, [])
 
   const scrape = () => {
     axios.post('/scrape', {
-      product: product
+      product: product.value
     })
     .then(function (response) {
+      setProducts(sortByKey(response.data, 'price'))
       console.log(response);
     })
   }
@@ -45,9 +62,40 @@ const Home = () => {
           flexDirection: 'column',
         }}
       >
-        <input type="text" onChange={(e) => setProduct(e.target.value)} />
+        <Select options={categories} onChange={setProduct} value={product}/>
         <br/>
         <button onClick={scrape}>Scrape</button>
+      </div>
+
+      {/* <div style={{
+        display: 'flex',
+        justifyContent:'center',
+        margin: '30px 0'
+      }}>
+        <button onClick={() => {
+          
+        }}>asc</button>
+        <button>desc</button>
+      </div> */}
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        margin: '25px 0'
+      }}>
+        {
+          <table>
+           <tr>
+            <th>Name</th>
+            <th>Price</th>
+          </tr>
+        {products?.map(p=> (
+            <tr>
+              <td>{p.name}</td>
+              <td>{p.price}</td>
+            </tr>
+        ))}
+        </table>
+      }
       </div>
     </div>
   );
