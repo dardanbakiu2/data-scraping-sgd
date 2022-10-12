@@ -6,8 +6,6 @@
 
 1.  **Run app.**
 
-    Use the CLI to install OGR app.
-
     ```shell
     # Install dependencies
     npm install && cd frontend && npm install 
