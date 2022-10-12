@@ -58,15 +58,19 @@ const About = () => {
       }}>
         {
           <table>
-           <tr>
-            <th>Name</th>
-            <th>Price</th>
-          </tr>
-        {products?.map(p=> (
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+              </tr>
+            </tbody>
+        {products?.map((p,index)=> (
+          <tbody key={index}>
             <tr>
               <td>{p.name}</td>
               <td>{p.price}</td>
             </tr>
+          </tbody>
         ))}
         </table>
       }

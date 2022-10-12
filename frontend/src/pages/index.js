@@ -9,7 +9,7 @@ const Home = () => {
   const [product, setProduct] = useState();
   const [products, setProducts] = useState([{name:'fetch to view', price: 0}]);
   const [lowestPrice, setLowestPrice] = useState(0);
-  const [highestPrice, setHighestPrice] = useState(0);
+  const [highestPrice, setHighestPrice] = useState(99999);
 
   function sortByKey(array, key) {
     return array.sort(function(a, b) {
@@ -92,15 +92,19 @@ const Home = () => {
       }}>
         {
           <table>
-           <tr>
-            <th>Name</th>
-            <th>Price</th>
-          </tr>
-        {products?.map(p=> (
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <th>Price</th>
+              </tr>
+            </tbody>
+        {products?.map((p,index)=> (
+          <tbody key={index}>
             <tr>
               <td>{p.name}</td>
               <td>{p.price}</td>
             </tr>
+          </tbody>
         ))}
         </table>
       }
