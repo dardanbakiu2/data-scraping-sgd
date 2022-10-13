@@ -68,8 +68,8 @@ const Home = () => {
           flexDirection: 'column',
         }}
       > 
-        <input onChange={(e) => setLowestPrice(e.target.value)} placeholder="Lowest Range Price"></input><br/>
-        <input onChange={(e) => setHighestPrice(e.target.value)} placeholder="Highest Ragen Price"></input><br/>
+        <input onChange={(e) => setLowestPrice(e.target.value)} placeholder="Lowest Price"></input><br/>
+        <input onChange={(e) => setHighestPrice(e.target.value)} placeholder="Highest Price"></input><br/>
         <Select options={categories} onChange={setProduct} value={product}/>
         <br/>
         <button onClick={scrape}>Scrape</button>
