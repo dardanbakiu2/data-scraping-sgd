@@ -2,7 +2,7 @@
     Web Scraping
 </h1>
 
-**Run app.**
+1.  **Run app.**
 
     ```shell
     # Install dependencies
