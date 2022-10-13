@@ -2,9 +2,7 @@
     Web Scraping
 </h1>
 
-## 🚀 Quick start
-
-1.  **Run app.**
+**Run app.**
 
     ```shell
     # Install dependencies
